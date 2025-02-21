@@ -1,6 +1,6 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
-import {  } from "axios";
+import {} from "axios";
 const Auth = () => {
   const [inputs, setInputs] = useState({
     name: "",
@@ -17,8 +17,6 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
-
-    
   };
   return (
     <div>
