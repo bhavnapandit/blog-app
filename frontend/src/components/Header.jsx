@@ -9,11 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
+import { authActions } from "../store";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [value, setValue] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
+
   return (
     <AppBar
       position="sticky"
@@ -68,6 +72,7 @@ const Header = () => {
               to="/auth"
               sx={{ margin: 1, borderRadius: 10 }}
               color="success"
+              onClick={() => dispatch(authActions.logout())}
             >
               Logout
             </Button>
