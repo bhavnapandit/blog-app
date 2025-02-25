@@ -1,5 +1,6 @@
 import React, { use, useEffect, useState } from 'react'
 import axios from "axios";
+import Blog from './Blog';
 
 const UserBlogs = () => {
   const [blogs,setBlogs]=useState()
@@ -10,13 +11,21 @@ const UserBlogs = () => {
     return data;
   }
   useEffect(()=>{
-   sendRequest().then((data)=>setBlogs(data.blogs));
+   sendRequest().then((data)=>setBlogs(data.blogs.blogs));
   },[])
   console.log(blogs);
   
   return (
     <div>
-      
+     {blogs && blogs.map((blog, index) => (
+         <Blog
+           title={blog.title}
+           description={blog.description}
+           imageUrl={blog.image}
+           userName={blog.user.name}
+           key={index}
+         />
+       ))}
     </div>
   )
 }

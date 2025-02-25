@@ -20,7 +20,7 @@ export default function Blog({title,description,imageUrl,userName}) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-            {userName.split(' ')[0]}
+            {userName}
           </Avatar>
         }
         title={title}
