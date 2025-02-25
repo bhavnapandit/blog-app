@@ -32,19 +32,21 @@ const Auth = () => {
       });
 
     const data = await res.data;
+    console.log(data);
+    
     return data;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
     if (isSignup) {
-      sendRequest("signup")
+      sendRequest("signup").then((data) => localStorage.setItem("userId", data.user._id))
         .then(() => dispatch(authActions.login()))
         .then(() => navigate("/blogs"))
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
     } else {
-      sendRequest("login")
+      sendRequest("login").then((data) => localStorage.setItem("userId", data.user._id))
         .then(() => dispatch(authActions.login()))
         .then(() => navigate("/blogs"))
         .then((data) => console.log(data))
