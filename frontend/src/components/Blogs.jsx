@@ -22,7 +22,7 @@ const Blogs = () => {
       description={blog.description}
       imageUrl={blog.image}
       userName={blog.user.name}
-      editable={false}
+      editable={localStorage.getItem("userId")===blog.userId}
       userId={blog._id}
       key={index}
     />

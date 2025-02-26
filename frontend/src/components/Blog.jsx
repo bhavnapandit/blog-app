@@ -7,6 +7,7 @@ import { Avatar, Box, CardHeader, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function Blog({
   title,
@@ -16,12 +17,18 @@ export default function Blog({
   editable,
   userId,
 }) {
+  const navigate=useNavigate();
+  const handleEdit=  (e) => {
+    navigate(`/myBlogs/${userId}`)
+  }
   const onDelete = async () => {
     const res = await axios
       .delete(`http://localhost:5001/api/blog/${userId}`)
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   };
+  const icon=userName;
+  console.log(icon)
   return (
     <Card
       sx={{
@@ -36,7 +43,7 @@ export default function Blog({
     >
       {editable && (
         <Box sx={{ position: "absolute", top: 10, right: 10 }}>
-          <IconButton aria-label="edit">
+          <IconButton onClick={handleEdit} aria-label="edit">
             <EditIcon />
           </IconButton>
           <IconButton onClick={onDelete} aria-label="delete">
@@ -47,11 +54,10 @@ export default function Blog({
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-            {userName}
+            {icon}
           </Avatar>
         }
         title={title}
-        subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
