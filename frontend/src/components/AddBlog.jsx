@@ -11,9 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import DeleteIcon from "@mui/icons-material/Delete";
 import PublishIcon from "@mui/icons-material/Publish";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddBlog = () => {
   const [inputs, setInputs] = useState({
@@ -21,7 +21,7 @@ const AddBlog = () => {
     description: "",
     image: "",
   });
-
+  const navigate=useNavigate();
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -45,7 +45,7 @@ const AddBlog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
-    addBlog();
+    addBlog().then(() => navigate("/myBlogs"));
     setInputs({
       title: "",
       description: "",
@@ -110,9 +110,6 @@ const AddBlog = () => {
 
           {/* Action Buttons */}
           <Stack direction="row" spacing={2} justifyContent="flex-end">
-            <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
-              Discard
-            </Button>
             <Button
               variant="contained"
               onClick={handleSubmit}

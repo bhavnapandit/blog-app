@@ -7,7 +7,7 @@ import { Avatar, Box, CardHeader, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog({
   title,
@@ -17,18 +17,20 @@ export default function Blog({
   editable,
   userId,
 }) {
-  const navigate=useNavigate();
-  const handleEdit=  (e) => {
-    navigate(`/myBlogs/${userId}`)
-  }
+  const navigate = useNavigate();
+  const handleEdit = (e) => {
+    navigate(`/myBlogs/${userId}`);
+  };
   const onDelete = async () => {
     const res = await axios
       .delete(`http://localhost:5001/api/blog/${userId}`)
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
+    alert("Blog Deleted");
+    window.location.reload();
   };
-  const icon=userName;
-  console.log(icon)
+  const icon = userName?.charAt(0).toUpperCase() || "U";
+  console.log(icon);
   return (
     <Card
       sx={{

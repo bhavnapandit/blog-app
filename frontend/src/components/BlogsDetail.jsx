@@ -13,11 +13,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BlogsDetail = () => {
   const [blog, setBlog] = useState();
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
   const id = useParams().id;
   console.log(id);
   const fetchBlog = async () => {
@@ -38,6 +39,18 @@ const BlogsDetail = () => {
     });
   }, [id]);
 
+  const sendRequest = async () => {
+    const res = await axios
+      .put(`http://localhost:5001/api/blog/update/${id}`, {
+        title: inputs.title,
+        description: inputs.description,
+        image: inputs.image,
+      })
+      .catch((err) => console.log(err));
+    const data = await res.data;
+    return data;
+  };
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -47,7 +60,12 @@ const BlogsDetail = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
+    sendRequest()
+      .then((data) => console.log(data))
+      .then(navigate("/myBlogs"))
+      .catch((err) => console.log(err));
   };
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4, borderRadius: "10px" }}>
       <Paper elevation={3} sx={{ p: 2 }}>
