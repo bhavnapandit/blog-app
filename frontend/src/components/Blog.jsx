@@ -30,6 +30,7 @@ export default function Blog({
     window.location.reload();
   };
   const icon = userName?.charAt(0).toUpperCase() || "U";
+  
   console.log(icon);
   return (
     <Card
